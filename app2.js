@@ -25,12 +25,15 @@ const pool = new Pool({
   port: 5432, // Default PostgreSQL port
 });
 
+
+require('dotenv').config();
+
 const pool2 = new Pool({
-  user: 'eli',
-  host: 'dpg-cpbjt7dds78s73f195mg-a',
-  database: 'l4sod',
-  password: 'dfQDOM7LJ9HXiSK40XGrQ1VcUgOcjXIr',
-  port: 5432,
+  user: process.env.user,
+  host: process.env.host,
+  database: process.env.database,
+  password: process.env.password,
+  port: process.env.port,
 });
 
 pool.connect((err) => {
