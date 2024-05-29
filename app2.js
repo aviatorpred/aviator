@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const dotenv = require('dotenv').config();
+const env = require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const ejs = require('ejs');
@@ -26,7 +26,7 @@ const pool = new Pool({
 });
 
 
-require('dotenv').config();
+
 
 const pool2 = new Pool({
   user: process.env.user,
@@ -34,6 +34,9 @@ const pool2 = new Pool({
   database: process.env.database,
   password: process.env.password,
   port: process.env.port,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 pool.connect((err) => {
@@ -239,4 +242,5 @@ app.get('/protected', requireLogin, (req, res) => {
 // Server Listening
 app.listen(4000, () => {
   console.log('Server is running at port 4000');
-});
+}); 
+module.exports = pool;
