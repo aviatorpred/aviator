@@ -17,13 +17,13 @@ app.use(session({
 }));
 
 // PostgreSQL connection pool
-const pool = new Pool({
-  user: 'eli',
-  host: 'localhost',
-  database: 'node_crud',
-  password: '2704',
-  port: 5432, // Default PostgreSQL port
-});
+// const pool = new Pool({
+//   user: 'eli',
+//   host: 'localhost',
+//   database: 'node_crud',
+//   password: '2704',
+//   port: 5432, // Default PostgreSQL port
+// });
 
 
 
@@ -75,7 +75,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/log', requireLogin, (req, res) => {
-  const sql = 'SELECT * FROM users';
+  const sql = 'SELECT * FROM crud';
   pool.query(sql, (err, result) => {
     if (err) throw err;
     res.render('user_index', {
@@ -93,7 +93,7 @@ app.get('/add', requireLogin, (req, res) => {
 
 app.post('/save', requireLogin, (req, res) => {
   const data = [req.body.name, req.body.email, req.body.phone_no];
-  const sql = 'INSERT INTO users (name, email, phone_no) VALUES ($1, $2, $3)';
+  const sql = 'INSERT INTO crud(name, email, phone_no) VALUES ($1, $2, $3)';
   pool.query(sql, data, (err, result) => {
     if (err) throw err;
     res.redirect('/log');
@@ -102,7 +102,7 @@ app.post('/save', requireLogin, (req, res) => {
 
 app.get('/edit/:userId', requireLogin, (req, res) => {
   const userId = req.params.userId;
-  const sql = 'SELECT * FROM users WHERE id = $1';
+  const sql = 'SELECT * FROM crud WHERE id = $1';
   pool.query(sql, [userId], (err, result) => {
     if (err) throw err;
     res.render('user_edit', {
@@ -115,7 +115,7 @@ app.get('/edit/:userId', requireLogin, (req, res) => {
 app.post('/update', requireLogin, (req, res) => {
   const userId = req.body.id;
   const data = [req.body.name, req.body.email, req.body.phone_no, userId];
-  const sql = 'UPDATE users SET name = $1, email = $2, phone_no = $3 WHERE id = $4';
+  const sql = 'UPDATE crud SET name = $1, email = $2, phone_no = $3 WHERE id = $4';
   pool.query(sql, data, (err, result) => {
     if (err) throw err;
     res.redirect('/log');
@@ -124,7 +124,7 @@ app.post('/update', requireLogin, (req, res) => {
 
 app.get('/delete/:userId', requireLogin, (req, res) => {
   const userId = req.params.userId;
-  const sql = 'DELETE FROM users WHERE id = $1';
+  const sql = 'DELETE FROM crud WHERE id = $1';
   pool.query(sql, [userId], (err, result) => {
     if (err) throw err;
     res.redirect('/log');
