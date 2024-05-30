@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
 
 app.get('/log', requireLogin, (req, res) => {
   const sql = 'SELECT * FROM crud';
-  pool.query(sql, (err, result) => {
+  pool2.query(sql, (err, result) => {
     if (err) throw err;
     res.render('user_index', {
       title: 'CRUD Operation using NodeJS / ExpressJS / PostgreSQL',
