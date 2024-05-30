@@ -94,7 +94,7 @@ app.get('/add', requireLogin, (req, res) => {
 app.post('/save', requireLogin, (req, res) => {
   const data = [req.body.name, req.body.email, req.body.phone_no];
   const sql = 'INSERT INTO crud(name, email, phone_no) VALUES ($1, $2, $3)';
-  pool.query(sql, data, (err, result) => {
+  pool2.query(sql, data, (err, result) => {
     if (err) throw err;
     res.redirect('/log');
   });
@@ -103,7 +103,7 @@ app.post('/save', requireLogin, (req, res) => {
 app.get('/edit/:userId', requireLogin, (req, res) => {
   const userId = req.params.userId;
   const sql = 'SELECT * FROM crud WHERE id = $1';
-  pool.query(sql, [userId], (err, result) => {
+  pool2.query(sql, [userId], (err, result) => {
     if (err) throw err;
     res.render('user_edit', {
       title: 'CRUD Operation using NodeJS / ExpressJS / PostgreSQL',
@@ -116,7 +116,7 @@ app.post('/update', requireLogin, (req, res) => {
   const userId = req.body.id;
   const data = [req.body.name, req.body.email, req.body.phone_no, userId];
   const sql = 'UPDATE crud SET name = $1, email = $2, phone_no = $3 WHERE id = $4';
-  pool.query(sql, data, (err, result) => {
+  pool2.query(sql, data, (err, result) => {
     if (err) throw err;
     res.redirect('/log');
   });
@@ -125,7 +125,7 @@ app.post('/update', requireLogin, (req, res) => {
 app.get('/delete/:userId', requireLogin, (req, res) => {
   const userId = req.params.userId;
   const sql = 'DELETE FROM crud WHERE id = $1';
-  pool.query(sql, [userId], (err, result) => {
+  pool2.query(sql, [userId], (err, result) => {
     if (err) throw err;
     res.redirect('/log');
   });
