@@ -39,7 +39,7 @@ const pool2 = new Pool({
   },
 });
 
-pool.connect((err) => {
+pool2.connect((err) => {
   if (err) console.error('Database connection error:', err);
   else console.log('Database Connected!');
 });
