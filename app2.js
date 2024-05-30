@@ -243,4 +243,4 @@ app.get('/protected', requireLogin, (req, res) => {
 app.listen(4000, () => {
   console.log('Server is running at port 4000');
 }); 
-module.exports = pool;
+module.exports = pool2;
